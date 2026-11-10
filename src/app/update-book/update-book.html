@@ -1,0 +1,64 @@
+<div class="container">
+    <div>
+        <h2>Modifier un livre</h2>
+    </div>
+    <form>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <label>ID</label>
+        <input readonly type="number" name="id" class="form-control"
+[(ngModel)]="bookCourant.id">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Titre</label>
+        <input type="text" name="title" class="form-control"
+[(ngModel)]="bookCourant.title">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Auteur</label>
+        <input type="text" name="author" class="form-control"
+[(ngModel)]="bookCourant.author">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Date de publication</label>
+        <input type="date" name="publicationDate" class="form-control"
+        [ngModel]="bookCourant.publicationDate | date:'yyyy-MM-dd'"
+(ngModelChange)="bookCourant.publicationDate = $event">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Catégorie</label>
+        <select type="text" class="form-control form-control-lg"
+[(ngModel)]="bookCourant.category" name="category">
+     @for (c of tab_category ; track c) {
+            <option [value]="c"> {{c}}</option>
+     }
+        </select>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <label>Prix</label>
+        <input type="number" name="price" class="form-control"
+[(ngModel)]="bookCourant.price">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <label>Langue originale</label>
+        <input type="text" name="originalLanguage" class="form-control"
+[(ngModel)]="bookCourant.originalLanguage">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <label>Nombre de pages</label>
+        <input type="number" name="numberOfPages" class="form-control"
+[(ngModel)]="bookCourant.numberOfPages">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <label>Disponibilité</label>
+        <select class="form-control" name="available"
+[(ngModel)]="bookCourant.available">
+          <option [value]="true">Disponible</option>
+          <option [value]="false">Non disponible</option>
+        </select>
+    </div>
+    <div class="mt-2">
+        <button type="submit" (click)="modifBook()" class="btn btn-success">Modifier
+        </button>
+    </div>
+    </form>
+</div>

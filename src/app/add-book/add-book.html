@@ -1,0 +1,54 @@
+<div class="container">
+<h2>Ajouter un livre</h2>
+
+<form>
+<div class="col-sm-2 col-md-2 col-lg-2">
+<label>Numéro</label>
+<input type="number" class="form-control" [(ngModel)]="newBook.id" name="id">
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4">
+<label>Titre</label>
+<input type="text" class="form-control" [(ngModel)]="newBook.title" name="title">
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4">
+<label>Auteur</label>
+<input type="text" class="form-control" [(ngModel)]="newBook.author" name="author">
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4">
+<label>Date de publication</label>
+<input type="date" class="form-control" [(ngModel)]="newBook.publicationDate" name="publicationDate">
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4">
+<label>Catégorie</label>
+<select [(ngModel)]="newBook.category" class="form-control form-control-lg" name="category">
+@for (c of tab_category; track c) {
+<option [value]="c"> {{c}} </option>
+}
+</select>
+</div>
+<div class="col-sm-2 col-md-2 col-lg-2">
+<label>Prix</label>
+<input type="number" class="form-control" [(ngModel)]="newBook.price" name="price">
+</div>
+<div class="col-sm-4 col-md-4 col-lg-4">
+<label>Langue originale</label>
+<input type="text" class="form-control" [(ngModel)]="newBook.originalLanguage" name="originalLanguage">
+</div>
+<div class="col-sm-2 col-md-2 col-lg-2">
+<label>Nombre de pages</label>
+<input type="number" class="form-control" [(ngModel)]="newBook.numberOfPages" name="numberOfPages">
+</div>
+<div class="col-sm-2 col-md-2 col-lg-2">
+<label>Disponibilité</label>
+<select [(ngModel)]="newBook.available" class="form-control" name="available">
+<option [value]="true">Disponible</option>
+<option [value]="false">Non disponible</option>
+</select>
+</div>
+<br>
+<div class="mt-8">
+<button type="submit" class="btn btn-success" (click)="ajouterBook()">
+Ajouter</button>
+</div>
+</form>
+</div>

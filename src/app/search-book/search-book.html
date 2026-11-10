@@ -1,0 +1,137 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <h1>Liste des livres</h1>
+
+      <form name="f1">
+        Choisir un critère de recherche :
+        <input
+          type="radio"
+          [(ngModel)]="critere"
+          (change)="onCritereChange()"
+          name="critere"
+          value="titre"
+        />
+        par titre
+        <input
+          type="radio"
+          [(ngModel)]="critere"
+          (change)="onCritereChange()"
+          name="critere"
+          value="auteur"
+        />
+        par auteur
+        <input
+          type="radio"
+          [(ngModel)]="critere"
+          (change)="onCritereChange()"
+          name="critere"
+          value="category"
+        />
+        par catégorie
+      </form>
+      <br />
+
+      <form name="f2">
+        @switch (critere) {
+          @case ('titre') {
+            <div class="form-group row mb-3">
+              <label for="saisieTitre" class="col-sm-3 col-form-label"
+                >Titre du livre à chercher :</label
+              >
+              <div class="col-sm-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="saisieTitre"
+                  #titreBook
+                  (keyup)="chercherParTitre(titreBook.value)"
+                />
+              </div>
+            </div>
+          }
+          @case ('auteur') {
+            <div class="form-group row mb-3">
+              <label for="saisieAuteur" class="col-sm-3 col-form-label"
+                >Auteur du livre à chercher :</label
+              >
+              <div class="col-sm-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="saisieAuteur"
+                  #auteurBook
+                  (keyup)="chercherParAuteur(auteurBook.value)"
+                />
+              </div>
+            </div>
+          }
+          @case ('category') {
+            <div class="form-group row mb-3">
+              <label class="col-sm-4 col-form-label"
+                >Catégorie du livre à chercher :</label
+              >
+              <div class="col-sm-4">
+                <select
+                  class="form-control"
+                  id="categoryRech"
+                  name="categoryRech"
+                  [(ngModel)]="categoryRech"
+                  (change)="chercherParCategory()"
+                >
+                  <option value="">Toutes</option>
+                  @for (c of tab_category; track c) {
+                    <option [value]="c">{{ c }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          }
+        }
+      </form>
+
+      <br />
+      <table width="100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Date de publication</th>
+            <th>Catégorie</th>
+            <th>Prix</th>
+            <th>Langue originale</th>
+            <th>Nombre de pages</th>
+            <th>Disponibilité</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (v of list_book; track v.id) {
+            <tr>
+              <td>{{ v.id }}</td>
+              <td>{{ v.title | uppercase }}</td>
+              <td>{{ v.author }}</td>
+              <td>{{ v.publicationDate | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ v.category }}</td>
+              <td>{{ v.price | number: '1.2-2' }} DT</td>
+              <td>{{ v.originalLanguage }}</td>
+              <td>{{ v.numberOfPages }}</td>
+              <td>
+                @if (v.available) {
+                  Disponible
+                } @else {
+                  Non disponible
+                }
+              </td>
+            </tr>
+          }
+          @empty {
+            <tr>
+              <td colspan="9">Aucun livre</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

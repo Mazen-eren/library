@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <h1>Liste des livres</h1>
+      <table width="100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Date de publication</th>
+            <th>Catégorie</th>
+            <th>Prix</th>
+            <th>Langue originale</th>
+            <th>Nombre de pages</th>
+            <th>Disponibilité</th>
+            <th>Avis</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (v of tab_book; track v.id) {
+            <tr>
+              <td>{{ v.id }}</td>
+              <td>{{ v.title | uppercase }}</td>
+              <td>{{ v.author }}</td>
+              <td>{{ v.publicationDate | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ v.category }}</td>
+              <td [ngStyle]="v.price >= 20 ? styleAvis : {}">
+                {{ v.price | number: '1.2-2' }} DT
+              </td>
+              <td>{{ v.originalLanguage }}</td>
+              <td>{{ v.numberOfPages }}</td>
+              <td>
+                @if (v.available) {
+                  Disponible
+                } @else {
+                  Non disponible
+                }
+              </td>
+              <td [ngStyle]="v.price >= 20 ? styleAvis : {}">
+                @if (v.price >= 20) {
+                  A lire absolument
+                } @else if (v.price >= 15) {
+                  Bien
+                } @else {
+                  -
+                }
+              </td>
+              <td>
+                <a
+                  class="btn btn-warning"
+                  [routerLink]="['/updateBook', v.id]"
+                >
+                  <img src="edit.png" height="32" width="32" />
+                </a>
+                <a class="btn btn-danger" (click)="suppBook(v)">
+                  <img
+                    src="delete.png"
+                    height="32"
+                    width="32"
+                    alt="Supprimer"
+                  />
+                </a>
+              </td>
+            </tr>
+          }
+          @empty {
+            <tr>
+              <td colspan="11">Aucun livre</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
